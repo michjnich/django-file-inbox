@@ -1,0 +1,15 @@
+{% extends file_inbox_base_template %}
+{% load custom_block %}
+{% load i18n %}
+
+{% customblock inbox_extends %}
+<br/>
+<div style="margin: 0 auto; padding: 10px; border: 1px solid #EF9A9A; border-radius: 4px; overflow: hidden; display: flex; flex-direction: column; width: 75vw;">
+    <h3>{{ filename }}</h3>
+    <span><hr /></span>
+    <span><strong>Subject: </strong>{{ subject }}</span>
+    <small>{{ timestamp }}</small>
+    <span><hr /></span>
+    {{ email_content|linebreaks }}
+</div>
+{% endcustomblock main_content %}

@@ -1,0 +1,111 @@
+{% load i18n %}
+
+{% if page_obj.paginator.num_pages > 1 %}
+<nav aria-label="pagination" style="display: flex; justify-content: center; border-top: 1px solid #eee; margin-top: 1em; padding-top: 0.5em;">
+    <ul class="pagination" style="list-style: none; display: flex">
+
+        {# Go to first page if we're not on it #}
+        {% if page_obj.number > 1 %}
+            <li class="page-item" style="margin: 0 1px; padding: 1px 2px; justify-content: center;">
+                <a 
+                    class="page-link" href="?page=1" aria-label="{% translate 'First' %}"
+                    style="display: block; padding: 0.5em 1em; border: 1px solid #999; border-radius: 0.2em; text-decoration: none;"
+                >
+                    <span>&laquo</span>
+                </a>
+            </li>
+        {% endif %}
+ 
+        {# Go to previous page if we're not on the first one #}
+        {% if page_obj.has_previous %}
+            <li class="page-item" style="margin: 0 1px; padding: 1px 2px; justify-content: center;">
+                <a 
+                    class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="{% translate 'Previous' %}"
+                    style="display: block; padding: 0.5em 1em; border: 1px solid #999; border-radius: 0.2em; text-decoration: none;"
+                >
+                    <span>&lt</span>
+                </a>
+            </li>
+        {% endif %}
+ 
+        {# Go back 2 pages if we're on page number >= 2 #}       
+        {% if page_obj.number > 2 %}
+            <li class="page-item" style="margin: 0 1px; padding: 1px 2px; justify-content: center;">
+                <a 
+                    class="page-link" href="?page={{ page_obj.number|add:-2 }}" aria-label="{% translate 'Page' %} {{ page_obj.number|add:-2 }}"
+                    style="display: block; padding: 0.5em 1em; border: 1px solid #999; border-radius: 0.2em; text-decoration: none;"
+                >
+                    <span aria-hidden="true">{{ page_obj.number|add:-2 }}</span>
+                </a>
+            </li>
+        {% endif %}
+
+        {# Go to previous page by page number if there is one #}
+        {% if page_obj.has_previous %}
+            <li class="page-item" style="margin: 0 1px; padding: 1px 2px; justify-content: center;">
+                <a 
+                    class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="{% translate 'Page' %} {{ page_obj.previous_page_number }}"
+                    style="display: block; padding: 0.5em 1em; border: 1px solid #999; border-radius: 0.2em; text-decoration: none;"
+                >
+                    <span aria-hidden="true">{{ page_obj.previous_page_number }}</span>
+                </a>
+            </li>
+        {% endif %}
+
+        {# Current page - no link #}
+        <li class="page-item" style="margin: 0 1px; padding: 1px 2px; justify-content: center;">
+            <span style="display: block; background-color: lightgray; padding: 0.5em 1em; border: 1px solid #999; border-radius: 0.2em; text-decoration: none;">
+                {{ page_obj.number }}
+            </span>
+        </li>
+
+        {# Go to next page by page number if there is one #}
+        {% if page_obj.has_next %}
+            <li class="page-item" style="margin: 0 1px; padding: 1px 2px; justify-content: center;">
+                <a 
+                    class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="{% translate 'Next' %}"
+                    style="display: block; padding: 0.5em 1em; border: 1px solid #999; border-radius: 0.2em; text-decoration: none;"
+                >
+                    <span aria-hidden="true">{{ page_obj.next_page_number }}</span>
+                </a>
+            </li>
+        {% endif %}
+
+        {# Go forward 2 pages if possible #}
+        {% if page_obj.number < page_obj.paginator.num_pages|add:-1 %}
+            <li class="page-item" style="margin: 0 1px; padding: 1px 2px; justify-content: center;">
+                <a 
+                    class="page-link" href="?page={{ page_obj.number|add:2 }}" aria-label="{% translate 'Page' %} {{ page_obj.number|add:2 }}"
+                    style="display: block; padding: 0.5em 1em; border: 1px solid #999; border-radius: 0.2em; text-decoration: none;"
+                >
+                    <span aria-hidden="true">{{ page_obj.number|add:2 }}</span>
+                </a>
+            </li>
+        {% endif %}
+
+        {# Go to next page if we're not on the last one #}
+        {% if page_obj.has_next %}
+            <li class="page-item" style="margin: 0 1px; padding: 1px 2px; justify-content: center;">
+                <a 
+                    class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="{% translate 'Next' %}"
+                    style="display: block; padding: 0.5em 1em; border: 1px solid #999; border-radius: 0.2em; text-decoration: none;"
+                >
+                    <span>&gt</span>
+                </a>
+            </li>
+        {% endif %}
+
+        {# Go to last page if we're not on it #}
+        {% if page_obj.number < page_obj.paginator.num_pages %}
+            <li class="page-item" style="margin: 0 1px; padding: 1px 2px; justify-content: center;">
+                <a 
+                    class="page-link" href="?page={{ page_obj.paginator.num_pages }}" aria-label="{% translate 'Last' %}"
+                    style="display: block; padding: 0.5em 1em; border: 1px solid #999; border-radius: 0.2em; text-decoration: none;"
+                >
+                    <span aria-hidden="true">&raquo</span>
+                </a>
+            </li>
+        {% endif %}
+    </ul>
+</nav>
+{% endif %}

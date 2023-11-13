@@ -1,0 +1,43 @@
+{% extends file_inbox_base_template %}
+{% load custom_block %}
+{% load i18n %}
+
+{% customblock file_inbox_block_name %}
+<h1>Inbox</h1>
+{% block inbox_pagination_top %}
+{% include 'django_file_inbox/_pagination.html' %}
+{% endblock inbox_pagination_top %}
+<table class="{{ file_inbox_table_classes }}" style="{{ file_inbox_table_style }}">
+    <thead>
+        <tr>
+            <th scope="col" style="border-bottom: 2px solid black; text-align: left; padding: 0.1em 0.3em;"">{% translate "Email file" %}</th>
+            <th scope="col" style="border-bottom: 2px solid black; text-align: left; padding: 0.1em 0.3em;">{% translate "Timestamp" %}</th>
+            <th scope="col" style="border-bottom: 2px solid black; text-align: left; padding: 0.1em 0.3em;">{% translate "Subject" %}</th>
+            <th scope="col" style="border-bottom: 2px solid black; text-align: left; padding: 0.1em 0.3em;">{% translate "From" %}</th>
+            <th scope="col" style="border-bottom: 2px solid black; text-align: left; padding: 0.1em 0.3em;">{% translate "To" %}</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for email in mail_list %}
+        <tr 
+            {% if forloop.counter|divisibleby:2 %}style="background-color: lightgray"{% endif %}
+            onclick="window.location='{% url "file_inbox_mail" filename=email.filename %}'"
+        >
+            <td scope="row" style="text-align: left; padding: 0.1em 0.3em;">{{ email.filename }}</td>
+            <td style="text-align: left; padding: 0.1em 0.3em;"> {{ email.timestamp }}</td>
+            <td style="text-align: left; padding: 0.1em 0.3em;"> {{ email.subject }}</td>
+            <td style="text-align: left; padding: 0.1em 0.3em;"> {{ email.from }}</td>
+            <td style="text-align: left; padding: 0.1em 0.3em;"> {{ email.to }}</td>
+        </tr>
+    {% empty %}
+    <tr>
+        <td class="text-center">{% translate "No messages found" %}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% block inbox_pagination_bottom %}
+{% include 'django_file_inbox/_pagination.html' %}
+{% endblock inbox_pagination_bottom %}
+
+{% endcustomblock file_inbox_block_name %}
