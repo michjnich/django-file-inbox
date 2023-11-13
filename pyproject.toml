@@ -1,12 +1,22 @@
 [project]
-authors = [{ name = "Michael J. Nicholson", email = "michjnich@outlook.com" }]
 name = "django-file-inbox"
 version = "0.1.0"
+authors = [{ name = "Michael J. Nicholson", email = "michjnich@outlook.com" }]
 description = "Simple inbox for Django file-based EmailBackend"
 dependencies = ["django~=4.0"]
 requires-python = ">=3.10,<4.0"
 readme = "README.md"
 license = { text = "MIT" }
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Framework :: Django",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/michjnich/django-file-inbox"
+"Issue Tracker" = "https://github.com/michjnich/django-file-inbox/issues"
 
 [build-system]
 requires = ["pdm-backend"]
@@ -15,8 +25,8 @@ build-backend = "pdm.backend"
 [tool.pdm]
 
 [tool.pdm.dev-dependencies]
-dev = []
 lint = ["ruff~=0.1.5"]
+dev = []
 type = ["mypy~=1.7.0", "django-stubs~=4.2.6"]
 
 [tool.pdm.build]
