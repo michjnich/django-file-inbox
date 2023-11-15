@@ -21,7 +21,7 @@
     {% for email in mail_list %}
         <tr 
             {% if forloop.counter|divisibleby:2 %}style="background-color: lightgray"{% endif %}
-            onclick="window.location='{% url "file_inbox_mail" filename=email.filename %}'"
+            onclick="window.location='{% url "django_file_inbox:file_inbox_mail" filename=email.filename %}'"
         >
             <td scope="row" style="text-align: left; padding: 0.1em 0.3em;">{{ email.filename }}</td>
             <td style="text-align: left; padding: 0.1em 0.3em;"> {{ email.timestamp }}</td>
